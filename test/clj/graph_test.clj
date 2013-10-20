@@ -1,7 +1,11 @@
 (ns clj.graph-test
-  (:require [clojure.test :refer :all]
-            [clj.graph :refer :all]))
+  (:use [clj.graph])
+  (:require [clojure.test :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest can-use-constructur
+  (testing "can-construct"
+    (is (not (nil? (graph #{} #{})))))
+  (testing "can-associate-sets"
+    (is (= #{:v} (:vertices (graph #{:v} #{}))))
+    (is (= #{#{:a, :b}} (:edges (graph #{} #{#{:a, :b}}))))))
+

@@ -1,6 +1,5 @@
 (ns clj.graph)
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defrecord Graph [vertices edges])
+
+(defn graph [vertices edges] (->Graph vertices edges))
