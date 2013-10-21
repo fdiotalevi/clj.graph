@@ -15,7 +15,7 @@
 
 (defn graph
   "Create a graph, given the set of vertices and the set of edges.
-  An edge is a set of 2 vertices
+  An edge is a set of 2 vertices,
   f.i.
 
   `(graph #{:a :b :c} #{ #{:a :b} #{:a :c} })`
@@ -40,17 +40,29 @@
   (count (:edges the-graph)))
 
 (defn adjacent?
-  "Given two vertices, check if they are adjacent"
+  "Given two vertices, check if they are adjacent,
+  f.i.
+
+  `(adjacent? my-graph :a :b)`"
   [the-graph vertex1 vertex2]
   (contains? (:edges the-graph) (hash-set vertex1 vertex2)))
 
 (defn vertex?
-  "Given a vertex, check if it's part of the graph"
+  "Given a vertex, check if it's part of the graph,
+  f.i.
+
+  `(vertex? my-graph :a)`"
   [the-graph vertex]
   (contains? (:vertices the-graph) vertex))
 
 ;; ## Modify the graph
 
 (defn add-vertices
+  "Add one or more vertices to the specified graph,
+   f.i.
+
+  `(add-vertices my-graph :x :y :z)`
+
+  Will return a copy of my-graph with the additional vertices"
   [the-graph & new-vertices]
   (graph (reduce conj (:vertices the-graph) new-vertices) (:edges the-graph)))
