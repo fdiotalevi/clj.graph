@@ -29,15 +29,28 @@
 
 ;; ## Query the graph
 
+(defn v?
+  "Return the number of vertices of a graph"
+  [the-graph]
+  (count (:vertices the-graph)))
+
+(defn e?
+  "Return the number of edges of a graph"
+  [the-graph]
+  (count (:edges the-graph)))
+
 (defn adjacent?
   "Given two vertices, check if they are adjacent"
   [the-graph vertex1 vertex2]
   (contains? (:edges the-graph) (hash-set vertex1 vertex2)))
 
 (defn vertex?
-  "Guven a vertex, check if it's part of the graph"
+  "Given a vertex, check if it's part of the graph"
   [the-graph vertex]
   (contains? (:vertices the-graph) vertex))
 
 ;; ## Modify the graph
 
+(defn add-vertices
+  [the-graph & new-vertices]
+  (graph (reduce conj (:vertices the-graph) new-vertices) (:edges the-graph)))

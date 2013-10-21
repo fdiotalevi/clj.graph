@@ -23,6 +23,11 @@
            (is false "Edges validation not working"))
          (catch Exception e true))))
 
+(deftest can-tell-vertices-number
+  (is (= 3 (v? test-graph))))
+
+(deftest can-tell-edges-number
+  (is (= 1 (e? test-graph))))
 
 (deftest recognise-adjacents
   (do
@@ -33,3 +38,13 @@
   (do
     (is (vertex? test-graph :a))
     (is (not (vertex? test-graph :d)))))
+
+(deftest can-add-vertices
+  (testing "can add one vertex"
+    (let [a-graph (add-vertices test-graph :d)]
+      (do
+        (is (not (vertex? test-graph :d)))
+        (is (vertex? a-graph :d)))))
+  (testing "can add multiple vertices"
+    (let [a-graph (add-vertices test-graph :x :y :z)]
+      (is (= 6 (count (:vertices a-graph)))))))
