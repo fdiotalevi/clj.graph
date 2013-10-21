@@ -30,9 +30,14 @@
 ;; ## Query the graph
 
 (defn adjacent?
-  [the-graph node1 node2]
-  (contains? (:edges the-graph) (hash-set node1 node2)))
+  "Given two vertices, check if they are adjacent"
+  [the-graph vertex1 vertex2]
+  (contains? (:edges the-graph) (hash-set vertex1 vertex2)))
 
+(defn vertex?
+  "Guven a vertex, check if it's part of the graph"
+  [the-graph vertex]
+  (contains? (:vertices the-graph) vertex))
 
 ;; ## Modify the graph
 
