@@ -1,5 +1,8 @@
+;; ## clj.graph
+;;
 ;; clj.graph implements the basic functions for graph
 ;; creation and manipulation in Clojure
+
 (ns clj.graph)
 
 (defrecord Graph [vertices edges])
@@ -56,6 +59,10 @@
   (contains? (:vertices the-graph) vertex))
 
 ;; ## Modify the graph
+;;
+;; As often happens in Clojure, graphs are immutable structures;
+;; therefore "modifying" a graph actually returns a copy of the 
+;; original graph with the required modifications
 
 (defn add-vertices
   "Add one or more vertices to the specified graph,
