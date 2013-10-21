@@ -27,4 +27,12 @@
     (->Graph vertices edges)
     (throw (Exception. "Invalid graph"))))
 
+;; ## Query the graph
+
+(defn adjacent?
+  [the-graph node1 node2]
+  (contains? (:edges the-graph) (hash-set node1 node2)))
+
+
 ;; ## Modify the graph
+

@@ -20,3 +20,9 @@
            (graph #{} #{#{:a}})
            (is false "Edges validation not working"))
          (catch Exception e true))))
+
+
+(deftest recognise-adjacents
+  (let [a-graph (graph #{:a :b :c} #{#{:a :b}})]
+    (is (adjacent? a-graph :b :a))
+    (is (not (adjacent? a-graph :a :c)))))
