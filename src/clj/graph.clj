@@ -42,7 +42,7 @@
 
 (defn null-graph
   [vertex-number]
-  1)
+  (graph (set (range 1 (+ 1 vertex-number))) #{}))
 
 (defn- build-cycle
   "Utilty function to build the edges of a cyclic graph"
