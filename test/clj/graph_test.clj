@@ -48,3 +48,16 @@
   (testing "can add multiple vertices"
     (let [a-graph (add-vertices test-graph :x :y :z)]
       (is (= 6 (count (:vertices a-graph)))))))
+
+(deftest can-add-edges
+  (testing "can add one edge"
+    (is (not (adjacent? test-graph :b :c)))
+    (let [new-graph (add-edges test-graph #{:b :c})]
+      (is (adjacent? new-graph :b :c))))
+  (testing "can add multiple edges"
+    (let [new-graph (add-edges test-graph #{:b :c} #{:c :a})]
+      (is (adjacent? new-graph :b :c))
+      (is (adjacent? new-graph :a :c))))
+  (testing "ignores non valid edges"
+    (let [new-graph (add-edges test-graph #{:a :b :c} :a)]
+      (is (= 1 (e? new-graph))))))

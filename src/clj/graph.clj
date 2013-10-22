@@ -7,12 +7,18 @@
 
 (defrecord Graph [vertices edges])
 
-(defn- valid-edges?
-  ([edges]
-     (if (empty? edges)
-       true
-       (let [valids (map #(and (set? %) (= 2 (count %))) edges)]
-         (reduce #(and %1 %2) valids)))))
+(defn- valid-edge?
+  "Check if the provided edge is valid"
+  [edge]
+  (and (set? edge) (= 2 (count edge))))
+
+(defn- valid-edges?  
+  "Check if the provided sequence of edges are all valid"
+  [edges]
+  (if (empty? edges)
+    true
+    (let [valids (map valid-edge? edges)]
+      (reduce #(and %1 %2) valids))))
 
 ;; ## Define a graph
 
@@ -73,3 +79,15 @@
   Will return a copy of my-graph with the additional vertices"
   [the-graph & new-vertices]
   (graph (reduce conj (:vertices the-graph) new-vertices) (:edges the-graph)))
+
+
+(defn add-edges
+  "Add one or more edges to the specified graph, f.i.
+
+  `(add-edges my-graph #{:a :b} #{:b :c})`
+
+  Will return a copy of the specified graph with the new edges. Will silently ignore
+  every edge that is not a set of two elements"
+  [the-graph & the-edges]
+  (let [filtered-edges (filter valid-edge? the-edges)]
+    (graph (:vertices the-graph) (reduce conj (:edges the-graph) filtered-edges))))
