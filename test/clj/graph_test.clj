@@ -66,3 +66,9 @@
   (let [g1 (graph #{:a :b :c} #{#{:b :a} #{:a :c}})
         g2 (graph #{:c :b :a} #{#{:a :b} #{:c :a}})]
     (is (= g1 g2))))
+
+(deftest can-build-a-cyclic-graph
+  (let [g1 (cyclic-graph 3)]
+    (do
+      (is (= #{1 2 3} (:vertices g1)))
+      (is (= #{#{1 2} #{2 3} #{3 1}} (:edges g1))))))

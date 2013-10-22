@@ -36,6 +36,29 @@
     (->Graph vertices edges)
     (throw (Exception. "Invalid graph"))))
 
+;; ## Common graphs
+;;
+;; This section contains the definition of several popular graphs
+(defn- build-cycle
+  "Utilty function to build the edges of a cyclic graph"
+  [sequence]
+  (if (< (count sequence) 2)
+    #{}
+    (let [max-sequence (last sequence)]
+      (set (map #(hash-set % (if (= % max-sequence) 1 (+ 1 %))) sequence)))))
+
+(defn cyclic-graph
+  "Create a cyclic graph with the specified `number` of vertices.
+  The vertices will be labeled from 1 to `number`, f.i.
+
+  `(cyclic-graph 3)`
+
+  will return a graph with vertices `1 2 3` and edges `(1 2) (2 3) (3 1)`"
+  [number]
+  (let [sequence (range 1 (+ 1 number))
+        vertices (set sequence)]
+    (graph vertices (build-cycle sequence))))
+
 ;; ## Query the graph
 
 (defn v?
