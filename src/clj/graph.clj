@@ -39,6 +39,11 @@
 ;; ## Common graphs
 ;;
 ;; This section contains the definition of several popular graphs
+
+(defn null-graph
+  [vertex-number]
+  1)
+
 (defn- build-cycle
   "Utilty function to build the edges of a cyclic graph"
   [sequence]

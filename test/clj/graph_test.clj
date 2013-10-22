@@ -72,3 +72,8 @@
     (do
       (is (= #{1 2 3} (:vertices g1)))
       (is (= #{#{1 2} #{2 3} #{3 1}} (:edges g1))))))
+
+(deftest can-build-a-null-graph
+  (let [ng (null-graph 10)]
+    (is (= 10 (v? ng)))
+    (is (= 0 (e? ng)))))
