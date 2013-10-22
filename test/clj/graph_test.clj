@@ -61,3 +61,8 @@
   (testing "ignores non valid edges"
     (let [new-graph (add-edges test-graph #{:a :b :c} :a)]
       (is (= 1 (e? new-graph))))))
+
+(deftest graph-equality-works
+  (let [g1 (graph #{:a :b :c} #{#{:b :a} #{:a :c}})
+        g2 (graph #{:c :b :a} #{#{:a :b} #{:c :a}})]
+    (is (= g1 g2))))
