@@ -20,6 +20,11 @@
     (let [valids (map valid-edge? edges)]
       (reduce #(and %1 %2) valids))))
 
+(defn i-range
+  "Inclusive-Inclusive range between 1 and `number`"
+  [number]
+  (range 1 (+ 1 number)))
+
 ;; ## Define a graph
 
 (defn graph
@@ -41,8 +46,9 @@
 ;; This section contains the definition of several popular graphs
 
 (defn null-graph
+  "Graph with `vertex-number` vertices and no edges"
   [vertex-number]
-  (graph (set (range 1 (+ 1 vertex-number))) #{}))
+  (graph (set (i-range vertex-number)) #{}))
 
 (defn- build-cycle
   "Utilty function to build the edges of a cyclic graph"
@@ -60,9 +66,22 @@
 
   will return a graph with vertices `1 2 3` and edges `(1 2) (2 3) (3 1)`"
   [number]
-  (let [sequence (range 1 (+ 1 number))
+  (let [sequence (i-range number)
         vertices (set sequence)]
     (graph vertices (build-cycle sequence))))
+
+(defn complete-graph
+  "Create a complete graph with `number` vertices. In a complete graph
+   all the vertices are adjacent.
+
+  `(complete-graph 3)`
+
+  will return a graph with vertices `1 2 3` and edges `(1 2) (1 3) (2 3)`"
+  [number]
+  (let [vertices (set (i-range number))
+        unfiltered-edges (for [x vertices y vertices] (hash-set x y))
+        edges (set (filter #(= 2 (count %)) unfiltered-edges))]
+    (graph vertices edges)))
 
 ;; ## Query the graph
 

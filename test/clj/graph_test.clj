@@ -77,3 +77,10 @@
   (let [ng (null-graph 10)]
     (is (= 10 (v? ng)))
     (is (= 0 (e? ng)))))
+
+(deftest can-build-a-complete-graph
+  (let [k3 (complete-graph 3)
+        k4 (complete-graph 4)]
+    (is (= k3 (cyclic-graph 3)))
+    (is (= k4 (graph #{1 2 3 4} #{#{1 2} #{1 3} #{1 4} #{2 3}
+                                  #{2 4} #{3 4}})))))
