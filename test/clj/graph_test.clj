@@ -91,3 +91,8 @@
       (is (= 1 (e? (remove-edges g #{:a :b})))))
     (testing "can remove multiple edges"
       (is (= (graph #{:a :b :c} #{}) (remove-edges g #{:a :b} #{:b :c}))))))
+
+(deftest can-sanitize-a-graph
+  (testing "sanitize will remove useless edges"
+      (let [g  (add-edges test-graph #{1 2})]
+        (is (= (sanitize g) test-graph)))))

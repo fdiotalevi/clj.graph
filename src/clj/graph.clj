@@ -117,6 +117,18 @@
 ;; therefore "modifying" a graph actually returns a copy of the 
 ;; original graph with the required modifications
 
+(defn sanitize
+  "This function checks whether the graph is correctly defined, f.i. if all the edges
+  refer to existing vertices. It will return 
+  - the same graph if it is correctly defined
+  - a sanitized graph if not
+  - an exception if the graph cannot be sanitized at all"
+  [the-graph]
+  (let [vertices (:vertices the-graph)
+        edges (:edges the-graph)
+        filtered-edges (set (filter #(and (contains? vertices (first %)) (contains? vertices (second %))) edges))]
+    (graph vertices filtered-edges)))
+
 (defn add-vertices
   "Add one or more vertices to the specified graph,
    f.i.
