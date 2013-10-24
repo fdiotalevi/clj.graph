@@ -84,3 +84,10 @@
     (is (= k3 (cyclic-graph 3)))
     (is (= k4 (graph #{1 2 3 4} #{#{1 2} #{1 3} #{1 4} #{2 3}
                                   #{2 4} #{3 4}})))))
+
+(deftest can-remove-edges
+  (let [g (add-edges test-graph #{:b :c})]
+    (testing "can remove one edge"
+      (is (= 1 (e? (remove-edges g #{:a :b})))))
+    (testing "can remove multiple edges"
+      (is (= (graph #{:a :b :c} #{}) (remove-edges g #{:a :b} #{:b :c}))))))

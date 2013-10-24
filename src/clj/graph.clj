@@ -138,3 +138,7 @@
   [the-graph & the-edges]
   (let [filtered-edges (filter valid-edge? the-edges)]
     (graph (:vertices the-graph) (reduce conj (:edges the-graph) filtered-edges))))
+
+(defn remove-edges
+  [the-graph & the-edges]
+  (graph (:vertices the-graph) (reduce disj (:edges the-graph) the-edges)))
