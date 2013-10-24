@@ -96,3 +96,14 @@
   (testing "sanitize will remove useless edges"
       (let [g  (add-edges test-graph #{1 2})]
         (is (= (sanitize g) test-graph)))))
+
+(deftest can-remove-vertices
+  (testing "can remove one vertex and related edge"
+    (let [c2 (cyclic-graph 2)
+          r2 (remove-vertices c2 1)]
+      (is (= 2 (v? c2)))
+      (is (= 1 (e? c2)))
+      (is (= 1 (v? r2)))
+      (is (= 0 (e? r2)))))
+  (testing "can remove multiple vertices and related edges"
+    (is (= (remove-vertices (cyclic-graph 3) 3) (cyclic-graph 2)))))

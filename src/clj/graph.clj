@@ -152,5 +152,18 @@
     (sanitize (graph (:vertices the-graph) (reduce conj (:edges the-graph) filtered-edges)))))
 
 (defn remove-edges
+  "Remove one or more edges from a graph, f.i.
+
+  `(remove-edges my-graph #{1 2} #{2 3})`"
   [the-graph & the-edges]
   (graph (:vertices the-graph) (reduce disj (:edges the-graph) the-edges)))
+
+(defn remove-vertices
+  "Remove one or more vertices from a graph, f.i.
+
+  `(remove-vertices my-graph 1 2)`
+
+  Note that this function will return a graph with the specified vertices removed AND
+  remove also all the edges containg the removed vertices"
+  [the-graph & the-vertices]
+  (sanitize (graph (reduce disj (:vertices the-graph) the-vertices) (:edges the-graph))))
