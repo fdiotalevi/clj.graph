@@ -149,7 +149,7 @@
   every edge that is not a set of two elements"
   [the-graph & the-edges]
   (let [filtered-edges (filter valid-edge? the-edges)]
-    (graph (:vertices the-graph) (reduce conj (:edges the-graph) filtered-edges))))
+    (sanitize (graph (:vertices the-graph) (reduce conj (:edges the-graph) filtered-edges)))))
 
 (defn remove-edges
   [the-graph & the-edges]
