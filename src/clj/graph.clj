@@ -79,8 +79,7 @@
   will return a graph with vertices `1 2 3` and edges `(1 2) (1 3) (2 3)`"
   [number]
   (let [vertices (set (i-range number))
-        unfiltered-edges (for [x vertices y vertices] (hash-set x y))
-        edges (set (filter #(= 2 (count %)) unfiltered-edges))]
+        edges (set (for [x vertices y vertices :when (not (= x y))] (hash-set x y)))]
     (graph vertices edges)))
 
 ;; ## Query the graph
