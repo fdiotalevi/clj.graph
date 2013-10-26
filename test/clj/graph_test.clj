@@ -24,10 +24,10 @@
          (catch Exception e true))))
 
 (deftest can-tell-vertices-number
-  (is (= 3 (v? test-graph))))
+  (is (= 3 (v test-graph))))
 
 (deftest can-tell-edges-number
-  (is (= 1 (e? test-graph))))
+  (is (= 1 (e test-graph))))
 
 (deftest recognise-adjacents
   (do
@@ -60,7 +60,7 @@
       (is (adjacent? new-graph :a :c))))
   (testing "ignores non valid edges"
     (let [new-graph (add-edges test-graph #{:a :b :c} :a)]
-      (is (= 1 (e? new-graph))))))
+      (is (= 1 (e new-graph))))))
 
 (deftest graph-equality-works
   (let [g1 (graph #{:a :b :c} #{#{:b :a} #{:a :c}})
@@ -75,8 +75,8 @@
 
 (deftest can-build-a-null-graph
   (let [ng (null-graph 10)]
-    (is (= 10 (v? ng)))
-    (is (= 0 (e? ng)))))
+    (is (= 10 (v ng)))
+    (is (= 0 (e ng)))))
 
 (deftest can-build-a-complete-graph
   (let [k3 (complete-graph 3)
@@ -88,7 +88,7 @@
 (deftest can-remove-edges
   (let [g (add-edges test-graph #{:b :c})]
     (testing "can remove one edge"
-      (is (= 1 (e? (remove-edges g #{:a :b})))))
+      (is (= 1 (e (remove-edges g #{:a :b})))))
     (testing "can remove multiple edges"
       (is (= (graph #{:a :b :c} #{}) (remove-edges g #{:a :b} #{:b :c}))))))
 
@@ -101,16 +101,16 @@
   (testing "can remove one vertex and related edge"
     (let [c2 (cyclic-graph 2)
           r2 (remove-vertices c2 1)]
-      (is (= 2 (v? c2)))
-      (is (= 1 (e? c2)))
-      (is (= 1 (v? r2)))
-      (is (= 0 (e? r2)))))
+      (is (= 2 (v c2)))
+      (is (= 1 (e c2)))
+      (is (= 1 (v r2)))
+      (is (= 0 (e r2)))))
   (testing "can remove multiple vertices and related edges"
     (is (= (remove-vertices (cyclic-graph 3) 3) (cyclic-graph 2)))))
 
 (deftest can-calculate-degree-of-vertex
-  (is (= 1 (degree? test-graph :a)))
-  (is (= 0 (degree? test-graph :c)))
-  (is (= 2 (degree? (cyclic-graph 4) 3)))
-  (is (= 3 (degree? (complete-graph 4) 3))))
+  (is (= 1 (degree test-graph :a)))
+  (is (= 0 (degree test-graph :c)))
+  (is (= 2 (degree (cyclic-graph 4) 3)))
+  (is (= 3 (degree (complete-graph 4) 3))))
 

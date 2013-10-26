@@ -84,12 +84,12 @@
 
 ;; ## Query the graph
 
-(defn v?
+(defn v
   "Return the number of vertices of a graph"
   [the-graph]
   (count (:vertices the-graph)))
 
-(defn e?
+(defn e
   "Return the number of edges of a graph"
   [the-graph]
   (count (:edges the-graph)))
@@ -110,7 +110,7 @@
   [the-graph vertex]
   (contains? (:vertices the-graph) vertex))
 
-(defn degree? 
+(defn degree 
   "Given a graph and a vertex, return the degree of that vertex 
    in the graph"
   [the-graph the-vertex]
