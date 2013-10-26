@@ -3091,14 +3091,13 @@ creation and manipulation in Clojure</p>
 </td><td class="codes"><pre class="brush: clojure">(defn complete-graph
   [number]
   (let [vertices (set (i-range number))
-        unfiltered-edges (for [x vertices y vertices] (hash-set x y))
-        edges (set (filter #(= 2 (count %)) unfiltered-edges))]
+        edges (set (for [x vertices y vertices :when (not (= x y))] (hash-set x y)))]
     (graph vertices edges)))</pre></td></tr><tr><td class="docs"><h2>Query the graph</h2>
 </td><td class="codes"></td></tr><tr><td class="docs"><p>Return the number of vertices of a graph</p>
-</td><td class="codes"><pre class="brush: clojure">(defn v?
+</td><td class="codes"><pre class="brush: clojure">(defn v
   [the-graph]
   (count (:vertices the-graph)))</pre></td></tr><tr><td class="docs"><p>Return the number of edges of a graph</p>
-</td><td class="codes"><pre class="brush: clojure">(defn e?
+</td><td class="codes"><pre class="brush: clojure">(defn e
   [the-graph]
   (count (:edges the-graph)))</pre></td></tr><tr><td class="docs"><p>Given two vertices, check if they are adjacent,
   f.i.</p>
@@ -3112,7 +3111,11 @@ creation and manipulation in Clojure</p>
 <p>  <code>(vertex? my-graph :a)</code></p>
 </td><td class="codes"><pre class="brush: clojure">(defn vertex?
   [the-graph vertex]
-  (contains? (:vertices the-graph) vertex))</pre></td></tr><tr><td class="docs"><h2>Modify the graph</h2>
+  (contains? (:vertices the-graph) vertex))</pre></td></tr><tr><td class="docs"><p>Given a graph and a vertex, return the degree of that vertex 
+   in the graph</p>
+</td><td class="codes"><pre class="brush: clojure">(defn degree 
+  [the-graph the-vertex]
+  (apply + (map #(if (contains? % the-vertex) 1 0) (:edges the-graph))))</pre></td></tr><tr><td class="docs"><h2>Modify the graph</h2>
 
 <p>As often happens in Clojure, graphs are immutable structures;
 therefore "modifying" a graph actually returns a copy of the 
