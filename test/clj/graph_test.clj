@@ -107,3 +107,10 @@
       (is (= 0 (e? r2)))))
   (testing "can remove multiple vertices and related edges"
     (is (= (remove-vertices (cyclic-graph 3) 3) (cyclic-graph 2)))))
+
+(deftest can-calculate-degree-of-vertex
+  (is (= 1 (degree? test-graph :a)))
+  (is (= 0 (degree? test-graph :c)))
+  (is (= 2 (degree? (cyclic-graph 4) 3)))
+  (is (= 3 (degree? (complete-graph 4) 3))))
+

@@ -110,6 +110,12 @@
   [the-graph vertex]
   (contains? (:vertices the-graph) vertex))
 
+(defn degree? 
+  "Given a graph and a vertex, return the degree of that vertex 
+   in the graph"
+  [the-graph the-vertex]
+  (apply + (map #(if (contains? % the-vertex) 1 0) (:edges the-graph))))
+
 ;; ## Modify the graph
 ;;
 ;; As often happens in Clojure, graphs are immutable structures;
