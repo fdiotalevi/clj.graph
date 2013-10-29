@@ -116,6 +116,11 @@
   [the-graph the-vertex]
   (apply + (map #(if (contains? % the-vertex) 1 0) (:edges the-graph))))
 
+(defn neighbours
+  "Return the adjacent vertices of `the-vertex`"
+  [the-graph the-vertex]
+  (set (filter #(adjacent? the-graph the-vertex %) (:vertices the-graph))))
+
 ;; ## Modify the graph
 ;;
 ;; As often happens in Clojure, graphs are immutable structures;

@@ -3115,7 +3115,10 @@ creation and manipulation in Clojure</p>
    in the graph</p>
 </td><td class="codes"><pre class="brush: clojure">(defn degree 
   [the-graph the-vertex]
-  (apply + (map #(if (contains? % the-vertex) 1 0) (:edges the-graph))))</pre></td></tr><tr><td class="docs"><h2>Modify the graph</h2>
+  (apply + (map #(if (contains? % the-vertex) 1 0) (:edges the-graph))))</pre></td></tr><tr><td class="docs"><p>Return the adjacent vertices of <code>the-vertex</code></p>
+</td><td class="codes"><pre class="brush: clojure">(defn neighbours
+  [the-graph the-vertex]
+  (set (filter #(adjacent? the-graph the-vertex %) (:vertices the-graph))))</pre></td></tr><tr><td class="docs"><h2>Modify the graph</h2>
 
 <p>As often happens in Clojure, graphs are immutable structures;
 therefore "modifying" a graph actually returns a copy of the 

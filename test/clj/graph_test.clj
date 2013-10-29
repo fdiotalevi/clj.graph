@@ -114,3 +114,6 @@
   (is (= 2 (degree (cyclic-graph 4) 3)))
   (is (= 3 (degree (complete-graph 4) 3))))
 
+(deftest can-return-adjacent-vertices
+  (is (= #{1 3} (neighbours (cyclic-graph 4) 2)))
+  (is (= #{1 3 4} (neighbours (complete-graph 4) 2))))
